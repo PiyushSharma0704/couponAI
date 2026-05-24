@@ -1,20 +1,66 @@
+// export const extractCouponData = async (
+//   imageUrl: string
+// ) => {
+//   console.log("Image URL:", imageUrl);
+
+//   /**
+//    * MOCK AI RESPONSE
+//    */
+//   return {
+//     company_name: "Domino's",
+
+//     coupon_code: "SAVE50",
+
+//     expiry_date: "2026-06-20",
+
+//     discount: "50% OFF",
+
+//     terms: "Applicable above ₹499",
+//   };
+// };
+
+import axios from "axios";
+
 export const extractCouponData = async (
   imageUrl: string
 ) => {
-  console.log("Image URL:", imageUrl);
+  try {
+    console.log("Sending image to AI service:");
 
-  /**
-   * MOCK AI RESPONSE
-   */
-  return {
-    company_name: "Domino's",
+    console.log(imageUrl);
 
-    coupon_code: "SAVE50",
+    const response = await axios.post(
+      `${process.env.AI_SERVICE_URL}/extract-coupon`,
+      {
+        image_url: imageUrl,
+      }
+    );
 
-    expiry_date: "2026-06-20",
+    console.log("AI RESPONSE:");
 
-    discount: "50% OFF",
+    console.log(response.data);
 
-    terms: "Applicable above ₹499",
-  };
+    /**
+     * FastAPI returns:
+     *
+     * {
+     *   success: true,
+     *   data: {}
+     * }
+     */
+
+    return response.data.data;
+
+  } catch (error: any) {
+
+    console.error(
+      "AI SERVICE ERROR:",
+      error?.response?.data || error.message
+    );
+
+    throw new Error(
+      error?.response?.data?.message ||
+      "Failed to extract coupon data"
+    );
+  }
 };
