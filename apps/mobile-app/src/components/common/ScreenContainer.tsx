@@ -1,4 +1,10 @@
-import { SafeAreaView, ScrollView } from "react-native";
+import React from "react";
+
+import { ScrollView } from "react-native";
+
+import {
+  SafeAreaView,
+} from "react-native-safe-area-context";
 
 import { useTheme } from "@/providers/theme-provider";
 
@@ -8,20 +14,33 @@ export default function ScreenContainer({
   children: React.ReactNode;
 }) {
   const { theme } = useTheme();
-  const { colors, spacing, typography, radius } = theme; 
 
+  const { colors, spacing } =
+    theme;
 
   return (
     <SafeAreaView
+      edges={["top"]}
       style={{
         flex: 1,
-        backgroundColor: colors.background,
+
+        backgroundColor:
+          colors.background,
       }}
     >
       <ScrollView
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={
+          false
+        }
         contentContainerStyle={{
-          padding: spacing.lg,
+          paddingHorizontal:
+            spacing.lg,
+
+          paddingTop:
+            spacing.md,
+
+          paddingBottom:
+            spacing.xxl,
         }}
       >
         {children}
