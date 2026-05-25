@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 
-import { House, ScanLine } from "lucide-react-native";
+import { House, ScanLine, TicketPercent, User } from "lucide-react-native";
 
 export default function TabLayout() {
   return (
@@ -12,20 +12,32 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="coupons"
         options={{
-          title: "Home",
-          tabBarIcon: ({ color, size }) => <House color={color} size={size} />,
+          title: "Coupons",
+
+          tabBarIcon: ({ color, size }) => (
+            <TicketPercent color={color} size={size} />
+          ),
         }}
       />
 
       <Tabs.Screen
-        name="scan"
+        name="index"
         options={{
-          title: "Scan",
+          title: "Home",
           tabBarIcon: ({ color, size }) => (
             <ScanLine color={color} size={size} />
           ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+
+          tabBarIcon: ({ color, size }) => <User color={color} size={size} />,
         }}
       />
     </Tabs>
